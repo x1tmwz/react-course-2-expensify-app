@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shuold render Expenses with data 1`] = `
+<div>
+  <ExpenseItem
+    amount={1}
+    createAt={0}
+    description="cat"
+    id="0"
+    key="0"
+    note=""
+  />
+  <ExpenseItem
+    amount={2}
+    createAt={-345600000}
+    description="coffe"
+    id="1"
+    key="1"
+    note=""
+  />
+  <ExpenseItem
+    amount={3}
+    createAt={345600000}
+    description="rent"
+    id="2"
+    key="2"
+    note=""
+  />
+</div>
+`;
+
+exports[`shuold render Expenses without data 1`] = `
+<div>
+  <p>
+    No Expenses
+  </p>
+</div>
+`;
