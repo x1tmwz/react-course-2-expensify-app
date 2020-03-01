@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should it render witout data 1`] = `<div />`;
+
+exports[`should render with SingleExpenses 1`] = `
+<div>
+  <p>
+    Viewing 
+    1
+     
+    expense
+     totalling 
+    $0.01
+     
+  </p>
+</div>
+`;
+
+exports[`should render with mulitExpenses 1`] = `
+<div>
+  <p>
+    Viewing 
+    3
+     
+    expenses
+     totalling 
+    $0.06
+     
+  </p>
+</div>
+`;
