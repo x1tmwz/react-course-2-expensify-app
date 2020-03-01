@@ -20,7 +20,7 @@ test('should EditExpensePage will render', () => {
 })
 test('should removeExpens work',()=>{
     wrapper.find('button').simulate('click')
-    expect(removeExpenseSpy).toHaveBeenLastCalledWith({id:expenses[0].id})
+    expect(removeExpenseSpy).toHaveBeenLastCalledWith(expenses[0].id)
     expect(historySpy.push).toHaveBeenLastCalledWith('/');
 })
 test('should editExpense work',()=>{

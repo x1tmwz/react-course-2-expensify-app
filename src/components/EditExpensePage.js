@@ -6,7 +6,8 @@ import ExpensForm from './ExpensForm';
 export class EditExpensePage extends React.Component {
 
     removeExpense = () => {
-        this.props.removeExpense({ id: this.props.expense.id });
+        console.log("remove");
+        this.props.removeExpense(this.props.expense.id);
         this.props.history.push("/");
     }
     editExpense=(expense)=>{
