@@ -1,21 +1,16 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import expenses from '../fixtures/expenses';
 import {ExpensesSummary} from '../../components/ExpensesSummary';
 
 let wrapper;
 beforeEach(()=>{
-    wrapper = shallow(<ExpensesSummary expenses={[]}/>)
+     wrapper = shallow(<ExpensesSummary expenseCount={1} expenseTotal={150} />)
 })
 
-test('should it render witout data',()=>{
-    expect(wrapper).toMatchSnapshot();
-})
 test('should render with mulitExpenses',()=>{
-    wrapper.setProps({expenses})
+    wrapper.setProps({expenseCount:5, expenseTotal:300});
     expect(wrapper).toMatchSnapshot();
 })
 test('should render with SingleExpenses',()=>{
-    wrapper.setProps({expenses:[expenses[0]]})
     expect(wrapper).toMatchSnapshot();
 })
