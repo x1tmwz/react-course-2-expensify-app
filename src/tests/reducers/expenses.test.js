@@ -47,3 +47,7 @@ test('should editExpens works without proper id', () => {
 
     expect(result).toEqual(expenses)
 })
+test('should set expenses work',()=>{
+    const result = expensesReducer({},{ type: 'SET_EXPENSES', expenses })
+    expect(result).toEqual(expenses);
+})
