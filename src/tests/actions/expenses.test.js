@@ -1,31 +1,32 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startAddExpense, addExpense, removeExpense, editExpense,setExpenses,startSetExpenses } from '../../actions/expenses';
+import { startAddExpense, addExpense, removeExpense, editExpense, setExpenses, startSetExpenses, startRemoveExpnese } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
 
-beforeEach((done)=>{
-    const expenseData ={};
-    expenses.forEach(({id,description,note,amount,createAt})=>{
-        expenseData[id]={description,note,amount,createAt};
+beforeEach((done) => {
+    const expenseData = {};
+    expenses.forEach(({ id, description, note, amount, createAt }) => {
+        expenseData[id] = { description, note, amount, createAt };
     })
-    database.ref('expenses').set(expenseData).then(()=>{done();})
+    database.ref('expenses').set(expenseData).then(() => { done(); })
 })
-test('should setExpneses transform to ther right object',()=>{
-    const action =setExpenses(expenses);
+test('should setExpneses transform to ther right object', () => {
+    const action = setExpenses(expenses);
     expect(action).toEqual({
-        type:"SET_EXPENSES",
+        type: "SET_EXPENSES",
         expenses
     })
 })
 
 test('shuold remove expense by id', () => {
-    const action = removeExpense({ id: '123abc' })
+    const id = '123abc'
+    const action = removeExpense(id)
     expect(action).toEqual({
         type: 'REMOVE_EXPENSE',
-        id: '123abc'
+        id
     })
 })
 test('should editExpnese transform to the right action object', () => {
@@ -65,12 +66,12 @@ test('should add Expens to database and store', (done) => {
         expect(actions[0]).toEqual({
             type: 'ADD_EXPENSE',
             expense: {
-                id:expect.any(String),
+                id: expect.any(String),
                 ...expenseData
             }
         })
         return database.ref(`expenses/${actions[0].expense.id}`).once('value')
-    }).then((snapshot)=>{
+    }).then((snapshot) => {
         expect(snapshot.val()).toEqual(expenseData);
         done();
     })
@@ -91,30 +92,44 @@ test('should add Expens with default values', (done) => {
         expect(actions[0]).toEqual({
             type: 'ADD_EXPENSE',
             expense: {
-                id:expect.any(String),
+                id: expect.any(String),
                 ...expenseData
             }
         })
         return database.ref(`expenses/${actions[0].expense.id}`).once('value')
-    }).then((snapshot)=>{
+    }).then((snapshot) => {
         expect(snapshot.val()).toEqual(expenseData);
         done();
     })
 
 
 })
-test('should fetch expnese from database works',(done)=>{
+test('should fetch expnese from database works', (done) => {
     const store = createMockStore({});
-    store.dispatch(startSetExpenses()).then(()=>{
+    store.dispatch(startSetExpenses()).then(() => {
         const actions = store.getActions();
         expect(actions[0]).toEqual({
-            type:'SET_EXPENSES',
+            type: 'SET_EXPENSES',
             expenses
         })
         done();
-
-
     })
+})
+test('should remove expnese from database works', (done) => {
+    const store = createMockStore({});
+    const action = startRemoveExpnese({ id: expenses[0].id })
+    store.dispatch(action).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'REMOVE_EXPENSE',
+            id: expenses[0].id
+        })
+        return database.ref(`expenses/${expenses[0].id}`).once('value')
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBeFalsy();
+        done();
+    })
+        
 
-
+    
 })
