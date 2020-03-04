@@ -3,13 +3,13 @@ import React from 'react';
 import { EditExpensePage } from '../../components/EditExpensePage';
 import expenses from '../fixtures/expenses';
 
-let wrapper, editExpenseSpy, startRemoveExpenseSpy, historySpy;
+let wrapper, startEditExpenseSpy, startRemoveExpenseSpy, historySpy;
 beforeEach(() => {
-    editExpenseSpy = jest.fn();
+    startEditExpenseSpy = jest.fn();
     startRemoveExpenseSpy = jest.fn();
     historySpy = { push: jest.fn() }
     wrapper = shallow(<EditExpensePage
-        editExpense={editExpenseSpy}
+        startEditExpense={startEditExpenseSpy}
         startRemoveExpnese={startRemoveExpenseSpy}
         history={historySpy}
         expense={expenses[0]}
@@ -25,6 +25,6 @@ test('should removeExpens work',()=>{
 })
 test('should editExpense work',()=>{
     wrapper.find('ExpensForm').prop('onSubmit')(expenses[0])
-    expect(editExpenseSpy).toHaveBeenLastCalledWith(expenses[0].id,expenses[0]);
+    expect(startEditExpenseSpy).toHaveBeenLastCalledWith(expenses[0].id,expenses[0]);
     expect(historySpy.push).toHaveBeenLastCalledWith('/');
 })
