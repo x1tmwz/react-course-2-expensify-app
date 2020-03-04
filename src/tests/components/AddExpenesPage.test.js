@@ -3,19 +3,19 @@ import React from 'react';
 import { AddExpenesPage } from '../../components/AddExpenesPage';
 import expenses from '../fixtures/expenses';
 
-let wrapper, addExpense, history;
+let wrapper, startAddExpense, history;
 
 beforeEach(() => {
-    addExpense = jest.fn();
+    startAddExpense = jest.fn();
     history = { push: jest.fn() }
-    wrapper = shallow(<AddExpenesPage addExpense={addExpense} history={history} />)
+    wrapper = shallow(<AddExpenesPage startAddExpense={startAddExpense} history={history} />)
 })
 
-test('should AddExpense Render', () => {
+test('should startAddExpense Render', () => {
     expect(wrapper).toMatchSnapshot();
 });
 test('should onSubmit with valid expense dispatch', () => {
     wrapper.find('ExpensForm').prop('onSubmit')(expenses[0]);
-    expect(addExpense).toHaveBeenLastCalledWith(expenses[0]);
+    expect(startAddExpense).toHaveBeenLastCalledWith(expenses[0]);
     expect(history.push).toHaveBeenLastCalledWith('/');
 })
