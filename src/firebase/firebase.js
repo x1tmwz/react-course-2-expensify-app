@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth';
 
 var firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -13,9 +14,9 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const dataBase = firebase.database();
-
-export {firebase,dataBase as default};
+const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export { firebase, googleAuthProvider, database as default };
 
 // for(let i = 0 ;i < expenses.length;i++){
 //     dataBase.ref('expenses').push(expenses[i]).then(() => {

@@ -18,11 +18,10 @@ exports[`shuold render header correctley 1`] = `
   >
     add page
   </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    to="/help"
+  <button
+    onClick={[Function]}
   >
-    help page
-  </NavLink>
+    Logout
+  </button>
 </header>
 `;
